@@ -1,0 +1,63 @@
+services:
+  - type: web
+    name: indian-bank-loan-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: virginia
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: SESSION_COOKIE_SECURE
+        value: "false"
+      - key: TRUSTED_PROXIES_ENABLED
+        value: "true"
+      # Set your Railway PostgreSQL connection string here or in the Render Dashboard
+      - key: DATABASE_URL
+        sync: false
+      # Mail notifications configuration
+      - key: MAIL_HOST
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: 587
+      - key: MAIL_AUTH
+        value: "true"
+      - key: MAIL_STARTTLS
+        value: "true"
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      # Outbound HTTPS Transactional Email Provider (Render blocks outbound SMTP ports 25, 465, 587)
+      - key: EMAIL_PROVIDER_TYPE
+        value: AUTO
+      - key: RESEND_API_KEY
+        sync: false
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: BREVO_API_KEY
+        sync: false
+      - key: EMAIL_API_URL
+        sync: false
+      - key: EMAIL_API_KEY
+        sync: false
+      - key: REMINDER_MAIL_SIMULATE
+        value: "false"
+
+  # Standalone Frontend Static Site on Render
+  - type: static
+    name: indian-bank-loan-frontend
+    plan: free
+    region: virginia
+    rootDir: frontend/my-react-app
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://indian-bank-loan-app.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+

@@ -1,0 +1,12 @@
+/* JavaAPEX migration support stylesheet.
+ *
+ * Original JSP/JSF styles are preserved verbatim in
+ * original-jsp-styles.css and external Bootstrap/Font Awesome stylesheets are
+ * linked by the generated index.html.
+ *
+ * This file deliberately does NOT redefine Bootstrap classes, body colors, or
+ * layout containers. Doing so previously introduced a blue theme that was not
+ * present in the source application.
+ *
+ * Detected source colors: #f7f9fc, #172b4d, #e2e8f0, #0050a4, #e31b23, #315b91, #ed7d16, #f8fafc, #f1f5f9, #24446b, #cbd5e0, #e67e22
+ */
